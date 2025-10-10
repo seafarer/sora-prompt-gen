@@ -124,7 +124,7 @@ function App() {
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sky-600 hover:text-sky-800 text-sm underline"
-            >Sora 2 Prompting Guide</a>
+            >Sora 2 Prompting Guide</a>.<br />All fields are optional.
             </p>
           </div>
           
