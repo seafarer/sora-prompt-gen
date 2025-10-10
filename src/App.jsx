@@ -111,9 +111,9 @@ function App() {
   const generatedPrompt = generatePrompt()
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="bg-white rounded-lg shadow-lg p-8">
+    <div className="min-h-screen bg-gray-50 py-0 md:py-8">
+      <div className="max-w-5xl mx-auto px-0 md:px-4">
+        <div className="bg-white rounded-lg shadow-lg p-5 md:p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
             Sora Video Prompt Generator
           </h1>
