@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Copy, Film, Camera, Zap, MessageSquare, Focus, Sun, Volume2, Check, Plus, X } from 'lucide-react'
+import { Copy, Film, Camera, Zap, MessageSquare, Focus, Sun, Volume2, Check, Plus, X, Save, FolderOpen } from 'lucide-react'
+import SavePromptDialog from './components/SavePromptDialog'
+import PromptsDrawer from './components/PromptsDrawer'
+import { savePrompt, getAllPrompts, deletePrompt, duplicatePrompt } from './utils/localStorage'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -14,6 +17,9 @@ function App() {
   })
   
   const [showNotification, setShowNotification] = useState(false)
+  const [showSaveDialog, setShowSaveDialog] = useState(false)
+  const [showDrawer, setShowDrawer] = useState(false)
+  const [savedPrompts, setSavedPrompts] = useState([])
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -108,25 +114,94 @@ function App() {
     }
   }, [showNotification])
 
+  // Load saved prompts on component mount
+  useEffect(() => {
+    setSavedPrompts(getAllPrompts())
+  }, [])
+
+  const handleSavePrompt = async (promptData) => {
+    try {
+      await savePrompt(promptData)
+      setSavedPrompts(getAllPrompts())
+      setShowNotification(true)
+    } catch (error) {
+      console.error('Error saving prompt:', error)
+    }
+  }
+
+  const handleLoadPrompt = (prompt) => {
+    setFormData(prompt.formData)
+    setShowDrawer(false)
+  }
+
+  const handleDuplicatePrompt = async (prompt) => {
+    try {
+      const duplicated = await duplicatePrompt(prompt.id)
+      setSavedPrompts(getAllPrompts())
+      setFormData(duplicated.formData)
+      setShowDrawer(false)
+    } catch (error) {
+      console.error('Error duplicating prompt:', error)
+    }
+  }
+
+  const handleDeletePrompt = async (id) => {
+    try {
+      await deletePrompt(id)
+      setSavedPrompts(getAllPrompts())
+    } catch (error) {
+      console.error('Error deleting prompt:', error)
+    }
+  }
+
   const generatedPrompt = generatePrompt()
 
   return (
-    <div className="min-h-screen bg-gray-50 py-0 md:py-8">
-      <div className="max-w-5xl mx-auto px-0 md:px-4">
-        <div className="bg-white rounded-lg shadow-lg p-5 md:p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-            Sora Prompt Generator
-          </h1>
-          <div className="text-center mb-8">
-            <p className="text-sm text-gray-600 mb-2">
-              Based on the official <a 
-              href="https://cookbook.openai.com/examples/sora/sora2_prompting_guide" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-sky-600 hover:text-sky-800 text-sm underline"
-            >Sora 2 Prompting Guide</a>.<br />All fields are optional.
-            </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Fixed Utility Bar */}
+      <div className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-gray-200 z-40">
+        <div className="max-w-5xl mx-auto px-4 py-2">
+          <div className="flex justify-between items-center">
+            <div className="text-xs text-gray-500">
+              Sora Prompt Generator
+            </div>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => setShowSaveDialog(true)}
+                className="flex items-center px-3 py-1 text-sm text-sky-600 hover:text-sky-800 hover:bg-sky-50 rounded-md transition-colors"
+              >
+                <Save className="w-3 h-3 mr-1" />
+                Save
+              </button>
+              <button
+                onClick={() => setShowDrawer(true)}
+                className="flex items-center px-3 py-1 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-md transition-colors"
+              >
+                <FolderOpen className="w-3 h-3 mr-1" />
+                Saved ({savedPrompts.length})
+              </button>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="pt-12 pb-8 md:pt-12 md:pb-8">
+        <div className="max-w-5xl mx-auto px-0 md:px-4">
+          <div className="bg-white rounded-b-lg shadow-lg p-5 md:p-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+              Sora Prompt Generator
+            </h1>
+            <div className="text-center mb-8">
+              <p className="text-sm text-gray-600 mb-2">
+                Based on the official <a 
+                href="https://cookbook.openai.com/examples/sora/sora2_prompting_guide" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sky-600 hover:text-sky-800 text-sm underline"
+              >Sora 2 Prompting Guide</a>.<br />All fields are optional.
+              </p>
+            </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Input Form */}
@@ -287,14 +362,33 @@ function App() {
           </div>
         </div>
       </div>
+    </div>
       
       {/* Notification Toast */}
       {showNotification && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50 animate-in slide-in-from-right duration-300">
           <Check className="w-5 h-5" />
-          <span>Prompt copied to clipboard!</span>
+          <span>Prompt saved successfully!</span>
         </div>
       )}
+
+      {/* Save Dialog */}
+      <SavePromptDialog
+        isOpen={showSaveDialog}
+        onClose={() => setShowSaveDialog(false)}
+        onSave={handleSavePrompt}
+        formData={formData}
+      />
+
+      {/* Prompts Drawer */}
+      <PromptsDrawer
+        isOpen={showDrawer}
+        onClose={() => setShowDrawer(false)}
+        onLoadPrompt={handleLoadPrompt}
+        onDuplicatePrompt={handleDuplicatePrompt}
+        onDeletePrompt={handleDeletePrompt}
+        prompts={savedPrompts}
+      />
     </div>
   )
 }
