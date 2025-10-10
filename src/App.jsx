@@ -280,7 +280,7 @@ function App() {
                   onChange={(e) => handleInputChange('sceneDescription', e.target.value)}
                   placeholder="Describe characters, costumes, scenery, weather and other details..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows={4}
+                  rows={8}
                 />
               </div>
 
@@ -424,7 +424,7 @@ function App() {
                   onChange={(e) => handleInputChange('audio', e.target.value)}
                   placeholder="Describe background music, sound effects, ambient sounds..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows={3}
+                  rows={4}
                 />
               </div>
 
@@ -438,7 +438,7 @@ function App() {
                   onChange={(e) => handleInputChange('dialogue', e.target.value)}
                   placeholder={`- Character one: "Line one."\n- Character two: "Line two."\n- Character one: "Line three"`}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows={3}
+                  rows={4}
                 />
               </div>
             </div>
