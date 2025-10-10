@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Copy, Film, Camera, Zap, MessageSquare, Focus, Sun, Volume2, Check, Plus, X, Save, FolderOpen } from 'lucide-react'
+import { Copy, Film, Camera, Zap, MessageSquare, Focus, Sun, Volume2, Check, Plus, X, Save, FolderOpen, Info, RotateCcw } from 'lucide-react'
 import SavePromptDialog from './components/SavePromptDialog'
 import PromptsDrawer from './components/PromptsDrawer'
+import InfoModal from './components/InfoModal'
 import { savePrompt, getAllPrompts, deletePrompt, duplicatePrompt } from './utils/localStorage'
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
   const [showSaveDialog, setShowSaveDialog] = useState(false)
   const [showDrawer, setShowDrawer] = useState(false)
   const [savedPrompts, setSavedPrompts] = useState([])
+  const [showInfoModal, setShowInfoModal] = useState(false)
+  const [infoModalType, setInfoModalType] = useState('')
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -154,6 +157,59 @@ function App() {
     }
   }
 
+  const openInfoModal = (type) => {
+    setInfoModalType(type)
+    setShowInfoModal(true)
+  }
+
+  const handleInsertTerm = (term) => {
+    // Map modal types to form fields
+    const fieldMap = {
+      'camera-shot': 'cameraShot',
+      'camera-lens': 'cameraLens', 
+      'lighting': 'lighting',
+      'mood': 'mood',
+      'actions': 'actions'
+    }
+
+    const field = fieldMap[infoModalType]
+    if (!field) return
+
+    if (field === 'actions') {
+      // For actions, add to the first empty action or create new one
+      const emptyIndex = formData.actions.findIndex(action => !action.trim())
+      if (emptyIndex !== -1) {
+        handleActionChange(emptyIndex, term)
+      } else {
+        // Add new action
+        setFormData(prev => ({
+          ...prev,
+          actions: [...prev.actions, term]
+        }))
+      }
+    } else {
+      // For other fields, append to existing value
+      const currentValue = formData[field] || ''
+      const newValue = currentValue ? `${currentValue}, ${term}` : term
+      handleInputChange(field, newValue)
+    }
+  }
+
+  const clearAllFields = () => {
+    if (confirm('Are you sure you want to clear all fields? This action cannot be undone.')) {
+      setFormData({
+        sceneDescription: '',
+        cameraShot: '',
+        cameraLens: '',
+        lighting: '',
+        mood: '',
+        actions: ['', '', ''],
+        audio: '',
+        dialogue: ''
+      })
+    }
+  }
+
   const generatedPrompt = generatePrompt()
 
   return (
@@ -224,6 +280,14 @@ function App() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Camera className="inline w-4 h-4 mr-2" />
                   Camera Shot
+                  <button
+                    type="button"
+                    onClick={() => openInfoModal('camera-shot')}
+                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    title="Camera shot reference"
+                  >
+                    <Info className="w-3 h-3" />
+                  </button>
                 </label>
                 <input
                   type="text"
@@ -238,6 +302,14 @@ function App() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Focus className="inline w-4 h-4 mr-2" />
                   Camera Lens
+                  <button
+                    type="button"
+                    onClick={() => openInfoModal('camera-lens')}
+                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    title="Camera & lens reference"
+                  >
+                    <Info className="w-3 h-3" />
+                  </button>
                 </label>
                 <input
                   type="text"
@@ -252,6 +324,14 @@ function App() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Sun className="inline w-4 h-4 mr-2" />
                   Lighting
+                  <button
+                    type="button"
+                    onClick={() => openInfoModal('lighting')}
+                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    title="Lighting reference"
+                  >
+                    <Info className="w-3 h-3" />
+                  </button>
                 </label>
                 <input
                   type="text"
@@ -266,6 +346,14 @@ function App() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Zap className="inline w-4 h-4 mr-2" />
                   Mood
+                  <button
+                    type="button"
+                    onClick={() => openInfoModal('mood')}
+                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    title="Film mood reference"
+                  >
+                    <Info className="w-3 h-3" />
+                  </button>
                 </label>
                 <input
                   type="text"
@@ -279,6 +367,14 @@ function App() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Actions
+                  <button
+                    type="button"
+                    onClick={() => openInfoModal('actions')}
+                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    title="Cinematic techniques reference"
+                  >
+                    <Info className="w-3 h-3" />
+                  </button>
                 </label>
                 {formData.actions.map((action, index) => (
                   <div key={index} className="flex items-center mb-2">
@@ -358,6 +454,17 @@ function App() {
                   {generatedPrompt || 'Fill in the form fields to generate your Sora prompt...'}
                 </pre>
               </div>
+              
+              {/* Clear Fields Button */}
+              <div className="mt-4 flex justify-center">
+                <button
+                  onClick={clearAllFields}
+                  className="flex items-center px-4 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+                >
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  Clear All Fields
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -388,6 +495,14 @@ function App() {
         onDuplicatePrompt={handleDuplicatePrompt}
         onDeletePrompt={handleDeletePrompt}
         prompts={savedPrompts}
+      />
+
+      {/* Info Modal */}
+      <InfoModal
+        isOpen={showInfoModal}
+        onClose={() => setShowInfoModal(false)}
+        type={infoModalType}
+        onInsertTerm={handleInsertTerm}
       />
     </div>
   )
