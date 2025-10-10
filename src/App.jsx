@@ -119,16 +119,13 @@ function App() {
           </h1>
           <div className="text-center mb-8">
             <p className="text-sm text-gray-600 mb-2">
-              Based on the official Sora 2 Prompting Guide
-            </p>
-            <a 
+              Based on the official <a 
               href="https://cookbook.openai.com/examples/sora/sora2_prompting_guide" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sky-600 hover:text-sky-800 text-sm underline"
-            >
-              Sora 2 Prompting Guide: Crafting a successful video prompt
-            </a>
+            >Sora 2 Prompting Guide</a>
+            </p>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
