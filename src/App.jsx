@@ -266,6 +266,14 @@ function App() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Film className="inline w-4 h-4 mr-2" />
                   Scene Description
+                  <button
+                    type="button"
+                    onClick={() => openInfoModal('scene-description')}
+                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    title="Scene description reference"
+                  >
+                    <Info className="w-3 h-3" />
+                  </button>
                 </label>
                 <textarea
                   value={formData.sceneDescription}

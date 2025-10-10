@@ -5,7 +5,7 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
   if (!isOpen) return null
 
   const handleTermClick = (term) => {
-    onInsertTerm(term)
+    onInsertTerm(term.toLowerCase())
     onClose()
   }
 
@@ -15,6 +15,17 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
       className="cursor-pointer hover:bg-sky-50 hover:text-sky-800 px-2 py-1 rounded transition-colors"
       onClick={() => handleTermClick(term)}
       title={`Click to insert "${term}"`}
+    >
+      <strong>{term}</strong> – {description}
+    </div>
+  )
+
+  const makeClickableFullLine = (term, description) => (
+    <div 
+      key={term}
+      className="cursor-pointer hover:bg-sky-50 hover:text-sky-800 px-2 py-1 rounded transition-colors"
+      onClick={() => handleTermClick(`${term} – ${description}`)}
+      title={`Click to insert full description`}
     >
       <strong>{term}</strong> – {description}
     </div>
@@ -138,37 +149,37 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Light Types</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Key Light", "Main light illuminating the subject")}
-                  {makeClickableTerm("Fill Light", "Reduces shadows from key light")}
-                  {makeClickableTerm("Back Light", "From behind; separates subject")}
-                  {makeClickableTerm("Rim Light", "From behind; separates subject")}
-                  {makeClickableTerm("Ambient Light", "Natural or existing light in scene")}
-                  {makeClickableTerm("Practical Light", "Visible sources like lamps/candles")}
-                  {makeClickableTerm("Bounce Light", "Indirect light reflected off surface")}
+                  {makeClickableFullLine("Key Light", "Main light illuminating the subject")}
+                  {makeClickableFullLine("Fill Light", "Reduces shadows from key light")}
+                  {makeClickableFullLine("Back Light", "From behind; separates subject")}
+                  {makeClickableFullLine("Rim Light", "From behind; separates subject")}
+                  {makeClickableFullLine("Ambient Light", "Natural or existing light in scene")}
+                  {makeClickableFullLine("Practical Light", "Visible sources like lamps/candles")}
+                  {makeClickableFullLine("Bounce Light", "Indirect light reflected off surface")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Lighting Quality</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Hard Light", "Sharp shadows and strong contrast")}
-                  {makeClickableTerm("Soft Light", "Diffused with gentle shadows")}
-                  {makeClickableTerm("High Key Lighting", "Bright, low contrast, cheerful")}
-                  {makeClickableTerm("Low Key Lighting", "Dark, high contrast, dramatic")}
-                  {makeClickableTerm("Silhouette Lighting", "Backlit with dark foreground")}
-                  {makeClickableTerm("Chiaroscuro", "Strong light/shadow contrast")}
+                  {makeClickableFullLine("Hard Light", "Sharp shadows and strong contrast")}
+                  {makeClickableFullLine("Soft Light", "Diffused with gentle shadows")}
+                  {makeClickableFullLine("High Key Lighting", "Bright, low contrast, cheerful")}
+                  {makeClickableFullLine("Low Key Lighting", "Dark, high contrast, dramatic")}
+                  {makeClickableFullLine("Silhouette Lighting", "Backlit with dark foreground")}
+                  {makeClickableFullLine("Chiaroscuro", "Strong light/shadow contrast")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Lighting Direction</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Top Light", "Overhead; adds intensity or mystery")}
-                  {makeClickableTerm("Under Light", "From below; unsettling/creepy effect")}
-                  {makeClickableTerm("Cross Lighting", "Opposite sides to sculpt form")}
-                  {makeClickableTerm("Motivated Lighting", "Mimics visible source (window/lamp)")}
-                  {makeClickableTerm("Natural Light", "Sunlight or moonlight, unmodified")}
-                  {makeClickableTerm("Artificial Light", "Controlled sources (LEDs, spots)")}
+                  {makeClickableFullLine("Top Light", "Overhead; adds intensity or mystery")}
+                  {makeClickableFullLine("Under Light", "From below; unsettling/creepy effect")}
+                  {makeClickableFullLine("Cross Lighting", "Opposite sides to sculpt form")}
+                  {makeClickableFullLine("Motivated Lighting", "Mimics visible source (window/lamp)")}
+                  {makeClickableFullLine("Natural Light", "Sunlight or moonlight, unmodified")}
+                  {makeClickableFullLine("Artificial Light", "Controlled sources (LEDs, spots)")}
                 </div>
               </section>
             </div>
@@ -184,36 +195,65 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Cinematic Moods</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Cinematic", "Polished, immersive, visually dramatic")}
-                  {makeClickableTerm("Documentary", "Realistic, handheld, observational")}
-                  {makeClickableTerm("Noir", "Dark, moody, high contrast, moral ambiguity")}
-                  {makeClickableTerm("Dreamlike", "Soft focus, surreal pacing, ethereal")}
-                  {makeClickableTerm("Nostalgic", "Warm tones, film grain, evokes memory")}
-                  {makeClickableTerm("Suspenseful", "Tense pacing and selective lighting")}
+                  {makeClickableFullLine("Cinematic", "Polished, immersive, visually dramatic")}
+                  {makeClickableFullLine("Documentary", "Realistic, handheld, observational")}
+                  {makeClickableFullLine("Noir", "Dark, moody, high contrast, moral ambiguity")}
+                  {makeClickableFullLine("Dreamlike", "Soft focus, surreal pacing, ethereal")}
+                  {makeClickableFullLine("Nostalgic", "Warm tones, film grain, evokes memory")}
+                  {makeClickableFullLine("Suspenseful", "Tense pacing and selective lighting")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Emotional Moods</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Romantic", "Soft light, golden hues, intimate framing")}
-                  {makeClickableTerm("Melancholic", "Muted color, slow pacing, introspective")}
-                  {makeClickableTerm("Gritty", "Rough, handheld, desaturated realism")}
-                  {makeClickableTerm("Whimsical", "Bright, stylized, playful motion")}
-                  {makeClickableTerm("Surreal", "Unnatural lighting/movement; dreamlike logic")}
-                  {makeClickableTerm("Futuristic", "Clean, metallic; cool lighting, precision")}
+                  {makeClickableFullLine("Romantic", "Soft light, golden hues, intimate framing")}
+                  {makeClickableFullLine("Melancholic", "Muted color, slow pacing, introspective")}
+                  {makeClickableFullLine("Gritty", "Rough, handheld, desaturated realism")}
+                  {makeClickableFullLine("Whimsical", "Bright, stylized, playful motion")}
+                  {makeClickableFullLine("Surreal", "Unnatural lighting/movement; dreamlike logic")}
+                  {makeClickableFullLine("Futuristic", "Clean, metallic; cool lighting, precision")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Genre Moods</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Horror", "High contrast, underlighting, uneasy framing")}
-                  {makeClickableTerm("Comedic", "Bright lighting, wide framing, rhythmic timing")}
-                  {makeClickableTerm("Epic", "Grand scale, sweeping shots, orchestral energy")}
-                  {makeClickableTerm("Minimalist", "Sparse design and clean composition")}
-                  {makeClickableTerm("Intimate", "Close framing, shallow focus, personal")}
-                  {makeClickableTerm("Tranquil", "Slow movement, natural sound, serene light")}
+                  {makeClickableFullLine("Horror", "High contrast, underlighting, uneasy framing")}
+                  {makeClickableFullLine("Comedic", "Bright lighting, wide framing, rhythmic timing")}
+                  {makeClickableFullLine("Epic", "Grand scale, sweeping shots, orchestral energy")}
+                  {makeClickableFullLine("Minimalist", "Sparse design and clean composition")}
+                  {makeClickableFullLine("Intimate", "Close framing, shallow focus, personal")}
+                  {makeClickableFullLine("Tranquil", "Slow movement, natural sound, serene light")}
+                </div>
+              </section>
+            </div>
+          )
+        }
+
+      case 'scene-description':
+        return {
+          icon: <Film className="w-6 h-6 text-blue-500" />,
+          title: 'Scene Description Reference',
+          content: (
+            <div className="space-y-6">
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-3">Single Field Prompt Pattern</h3>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                  <p className="text-sm text-blue-800 font-medium mb-2">Follow this pattern for a single field prompt:</p>
+                  <div className="bg-white rounded p-3 border border-blue-300">
+                    <code className="text-sm text-gray-800">
+                      [SHOT TYPE] + [SUBJECT] + [ACTION] + [STYLE] + [CAMERA MOVEMENT] + [AUDIO CUES]
+                    </code>
+                  </div>
+                </div>
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                  <p className="text-sm text-gray-700 font-medium mb-2">Example:</p>
+                  <div className="bg-white rounded p-3 border border-gray-300">
+                    <code className="text-sm text-gray-800">
+                      Medium shot, cyberpunk hacker typing frantically, neon reflections on face, blade runner aesthetic, slow push in, Audio: mechanical keyboard clicks, distant sirens
+                    </code>
+                  </div>
                 </div>
               </section>
             </div>
