@@ -115,7 +115,7 @@ function App() {
       <div className="max-w-5xl mx-auto px-0 md:px-4">
         <div className="bg-white rounded-lg shadow-lg p-5 md:p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-            Sora Video Prompt Generator
+            Sora Prompt Generator
           </h1>
           <div className="text-center mb-8">
             <p className="text-sm text-gray-600 mb-2">
