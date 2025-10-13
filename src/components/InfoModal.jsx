@@ -95,6 +95,63 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
           )
         }
 
+      case 'cinematography-notes':
+        return {
+          icon: <Film className="w-6 h-6 text-indigo-600" />,
+          title: 'Camera Notes Reference',
+          content: (
+            <div className="space-y-6">
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-3">Depth of Field</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                  {makeClickableTerm("Shallow depth of field", "Subject sharp, background blurred")}
+                  {makeClickableTerm("Deep depth of field", "Everything in focus")}
+                  {makeClickableTerm("Rack focus", "Focus shifts between subjects")}
+                  {makeClickableTerm("Selective focus", "Isolates specific element")}
+                  {makeClickableTerm("Bokeh", "Aesthetic blur quality")}
+                </div>
+              </section>
+
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-3">Camera Motion Quality</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                  {makeClickableTerm("Smooth tracking", "Fluid camera movement")}
+                  {makeClickableTerm("Handheld motion", "Natural, organic feel")}
+                  {makeClickableTerm("Steady cam", "Stabilized movement")}
+                  {makeClickableTerm("Gimbal movement", "Smooth electronic stabilization")}
+                  {makeClickableTerm("Locked off", "Completely static")}
+                  {makeClickableTerm("Subtle drift", "Slight organic movement")}
+                </div>
+              </section>
+
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-3">Frame Rate & Speed</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                  {makeClickableTerm("24fps cinematic", "Standard film look")}
+                  {makeClickableTerm("60fps smooth", "High frame rate clarity")}
+                  {makeClickableTerm("120fps slow motion", "Dramatic slow-down")}
+                  {makeClickableTerm("Overcranked", "Slowed down effect")}
+                  {makeClickableTerm("Undercranked", "Sped up effect")}
+                  {makeClickableTerm("Variable speed", "Speed changes within shot")}
+                </div>
+              </section>
+
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-3">Camera Properties</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                  {makeClickableTerm("Film grain", "Organic texture")}
+                  {makeClickableTerm("Digital noise", "Video texture")}
+                  {makeClickableTerm("Soft focus", "Diffused, dreamy quality")}
+                  {makeClickableTerm("Tack sharp", "Crystal clear detail")}
+                  {makeClickableTerm("Lens flare", "Light artifacts")}
+                  {makeClickableTerm("Chromatic aberration", "Color fringing effect")}
+                  {makeClickableTerm("Vignette", "Darkened edges")}
+                </div>
+              </section>
+            </div>
+          )
+        }
+
       case 'camera-lens':
         return {
           icon: <Camera className="w-6 h-6 text-sky-600" />,

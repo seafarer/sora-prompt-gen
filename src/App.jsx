@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Copy, Film, Camera, Zap, MessageSquare, Focus, Sun, Volume2, Check, Plus, X, Save, FolderOpen, Info, RotateCcw } from 'lucide-react'
+import { Copy, Check, Save, FolderOpen, RotateCcw } from 'lucide-react'
+import PromptForm from './components/PromptForm'
 import SavePromptDialog from './components/SavePromptDialog'
 import PromptsDrawer from './components/PromptsDrawer'
 import InfoModal from './components/InfoModal'
@@ -10,6 +11,7 @@ function App() {
     sceneDescription: '',
     cameraShot: '',
     cameraLens: '',
+    cinematographyNotes: '',
     lighting: '',
     mood: '',
     actions: ['', '', ''],
@@ -59,13 +61,16 @@ function App() {
       prompt += formData.sceneDescription + '\n\n'
     }
     
-    if (formData.cameraShot || formData.cameraLens || formData.lighting || formData.mood) {
+    if (formData.cameraShot || formData.cameraLens || formData.cinematographyNotes || formData.lighting || formData.mood) {
       prompt += 'Cinematography:\n'
       if (formData.cameraShot) {
         prompt += `Camera shot: ${formData.cameraShot}\n`
       }
       if (formData.cameraLens) {
         prompt += `Camera lens: ${formData.cameraLens}\n`
+      }
+      if (formData.cinematographyNotes) {
+        prompt += `${formData.cinematographyNotes}\n`
       }
       if (formData.lighting) {
         prompt += `Lighting: ${formData.lighting}\n`
@@ -166,7 +171,8 @@ function App() {
     // Map modal types to form fields
     const fieldMap = {
       'camera-shot': 'cameraShot',
-      'camera-lens': 'cameraLens', 
+      'camera-lens': 'cameraLens',
+      'cinematography-notes': 'cinematographyNotes',
       'lighting': 'lighting',
       'mood': 'mood',
       'actions': 'actions'
@@ -201,6 +207,7 @@ function App() {
         sceneDescription: '',
         cameraShot: '',
         cameraLens: '',
+        cinematographyNotes: '',
         lighting: '',
         mood: '',
         actions: ['', '', ''],
@@ -219,7 +226,7 @@ function App() {
         <div className="max-w-5xl mx-auto px-4 py-2">
           <div className="flex justify-between items-center">
             <div className="text-xs text-gray-500">
-              Sora Prompt Generator
+              Shot Builder
             </div>
             <div className="flex items-center space-x-4">
               <button
@@ -261,187 +268,14 @@ function App() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Input Form */}
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Film className="inline w-4 h-4 mr-2" />
-                  Scene Description
-                  <button
-                    type="button"
-                    onClick={() => openInfoModal('scene-description')}
-                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                    title="Scene description reference"
-                  >
-                    <Info className="w-3 h-3" />
-                  </button>
-                </label>
-                <textarea
-                  value={formData.sceneDescription}
-                  onChange={(e) => handleInputChange('sceneDescription', e.target.value)}
-                  placeholder="Describe characters, costumes, scenery, weather and other details..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows={8}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Camera className="inline w-4 h-4 mr-2" />
-                  Camera Shot
-                  <button
-                    type="button"
-                    onClick={() => openInfoModal('camera-shot')}
-                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                    title="Camera shot reference"
-                  >
-                    <Info className="w-3 h-3" />
-                  </button>
-                </label>
-                <input
-                  type="text"
-                  value={formData.cameraShot}
-                  onChange={(e) => handleInputChange('cameraShot', e.target.value)}
-                  placeholder="e.g. wide establishing shot, eye level"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Focus className="inline w-4 h-4 mr-2" />
-                  Camera Lens
-                  <button
-                    type="button"
-                    onClick={() => openInfoModal('camera-lens')}
-                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                    title="Camera & lens reference"
-                  >
-                    <Info className="w-3 h-3" />
-                  </button>
-                </label>
-                <input
-                  type="text"
-                  value={formData.cameraLens}
-                  onChange={(e) => handleInputChange('cameraLens', e.target.value)}
-                  placeholder="e.g. 50mm lens, wide angle, telephoto"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Sun className="inline w-4 h-4 mr-2" />
-                  Lighting
-                  <button
-                    type="button"
-                    onClick={() => openInfoModal('lighting')}
-                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                    title="Lighting reference"
-                  >
-                    <Info className="w-3 h-3" />
-                  </button>
-                </label>
-                <input
-                  type="text"
-                  value={formData.lighting}
-                  onChange={(e) => handleInputChange('lighting', e.target.value)}
-                  placeholder="e.g. natural daylight, dramatic shadows, soft lighting"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Zap className="inline w-4 h-4 mr-2" />
-                  Mood
-                  <button
-                    type="button"
-                    onClick={() => openInfoModal('mood')}
-                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                    title="Film mood reference"
-                  >
-                    <Info className="w-3 h-3" />
-                  </button>
-                </label>
-                <input
-                  type="text"
-                  value={formData.mood}
-                  onChange={(e) => handleInputChange('mood', e.target.value)}
-                  placeholder="e.g. cinematic and tense, playful and suspenseful"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Actions
-                  <button
-                    type="button"
-                    onClick={() => openInfoModal('actions')}
-                    className="ml-2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                    title="Cinematic techniques reference"
-                  >
-                    <Info className="w-3 h-3" />
-                  </button>
-                </label>
-                {formData.actions.map((action, index) => (
-                  <div key={index} className="flex items-center mb-2">
-                    <input
-                      type="text"
-                      value={action}
-                      onChange={(e) => handleActionChange(index, e.target.value)}
-                      placeholder={`Action ${index + 1}: a clear, specific beat or gesture`}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    {formData.actions.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeAction(index)}
-                        className="ml-2 p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={addAction}
-                  className="flex items-center px-3 py-1 text-sm bg-gray-500 text-white rounded-md hover:bg-gray-700 transition-colors"
-                >
-                  <Plus className="w-4 h-4 mr-1" />
-                  Add
-                </button>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Volume2 className="inline w-4 h-4 mr-2" />
-                  Audio
-                </label>
-                <textarea
-                  value={formData.audio}
-                  onChange={(e) => handleInputChange('audio', e.target.value)}
-                  placeholder="Describe background music, sound effects, ambient sounds..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows={4}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <MessageSquare className="inline w-4 h-4 mr-2" />
-                  Dialogue
-                </label>
-                <textarea
-                  value={formData.dialogue}
-                  onChange={(e) => handleInputChange('dialogue', e.target.value)}
-                  placeholder={`- Character one: "Line one."\n- Character two: "Line two."\n- Character one: "Line three"`}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows={4}
-                />
-              </div>
-            </div>
+            <PromptForm
+              formData={formData}
+              onInputChange={handleInputChange}
+              onActionChange={handleActionChange}
+              onAddAction={addAction}
+              onRemoveAction={removeAction}
+              onOpenInfoModal={openInfoModal}
+            />
 
             {/* Generated Prompt */}
             <div>
