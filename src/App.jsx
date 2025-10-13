@@ -19,7 +19,7 @@ function App() {
     dialogue: ''
   })
   
-  const [showNotification, setShowNotification] = useState(false)
+  const [notification, setNotification] = useState({ show: false, message: '' })
   const [showSaveDialog, setShowSaveDialog] = useState(false)
   const [showDrawer, setShowDrawer] = useState(false)
   const [savedPrompts, setSavedPrompts] = useState([])
@@ -107,20 +107,20 @@ function App() {
     const prompt = generatePrompt()
     try {
       await navigator.clipboard.writeText(prompt)
-      setShowNotification(true)
+      setNotification({ show: true, message: 'Copied to clipboard!' })
     } catch (err) {
       console.error('Failed to copy: ', err)
     }
   }
 
   useEffect(() => {
-    if (showNotification) {
+    if (notification.show) {
       const timer = setTimeout(() => {
-        setShowNotification(false)
+        setNotification({ show: false, message: '' })
       }, 2000)
       return () => clearTimeout(timer)
     }
-  }, [showNotification])
+  }, [notification.show])
 
   // Load saved prompts on component mount
   useEffect(() => {
@@ -131,7 +131,7 @@ function App() {
     try {
       await savePrompt(promptData)
       setSavedPrompts(getAllPrompts())
-      setShowNotification(true)
+      setNotification({ show: true, message: 'Prompt saved successfully!' })
     } catch (error) {
       console.error('Error saving prompt:', error)
     }
@@ -314,10 +314,10 @@ function App() {
     </div>
       
       {/* Notification Toast */}
-      {showNotification && (
+      {notification.show && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50 animate-in slide-in-from-right duration-300">
           <Check className="w-5 h-5" />
-          <span>Prompt saved successfully!</span>
+          <span>{notification.message}</span>
         </div>
       )}
 
