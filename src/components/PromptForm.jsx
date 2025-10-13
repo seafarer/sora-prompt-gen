@@ -150,7 +150,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
       </div>
 
       {/* Actions */}
-      <div>
+      <div className="border-t border-gray-200 pt-4 mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Actions
           <button
@@ -193,7 +193,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
       </div>
 
       {/* Audio */}
-      <div>
+      <div className="border-t border-gray-200 pt-4 mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           <Volume2 className="inline w-4 h-4 mr-2" />
           Audio
