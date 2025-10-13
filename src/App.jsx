@@ -225,7 +225,7 @@ function App() {
       <div className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-gray-200 z-40">
         <div className="max-w-5xl mx-auto px-4 py-2">
           <div className="flex justify-between items-center">
-            <div className="text-xs text-gray-500">
+            <div className="text-sm text-gray-500 font-bold uppercase">
               Shot Builder
             </div>
             <div className="flex items-center space-x-4">
