@@ -290,15 +290,15 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
 
       case 'scene-description':
         return {
-          icon: <Film className="w-6 h-6 text-blue-500" />,
+          icon: <Film className="w-6 h-6 text-sky-500" />,
           title: 'Scene Description Reference',
           content: (
             <div className="space-y-6">
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Single Field Prompt Pattern</h3>
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                  <p className="text-sm text-blue-800 font-medium mb-2">Follow this pattern for a single field prompt:</p>
-                  <div className="bg-white rounded p-3 border border-blue-300">
+                <div className="bg-sky-50 border border-sky-200 rounded-lg p-4 mb-4">
+                  <p className="text-sm text-sky-800 font-medium mb-2">Follow this pattern for a single field prompt:</p>
+                  <div className="bg-white rounded p-3 border border-sky-300">
                     <code className="text-sm text-gray-800">
                       [SHOT TYPE] + [SUBJECT] + [ACTION] + [STYLE] + [CAMERA MOVEMENT] + [AUDIO CUES]
                     </code>

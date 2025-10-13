@@ -22,7 +22,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.sceneDescription}
           onChange={(e) => onInputChange('sceneDescription', e.target.value)}
           placeholder="Describe characters, costumes, scenery, weather and other details..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
           rows={8}
         />
       </div>
@@ -53,7 +53,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.cameraShot}
           onChange={(e) => onInputChange('cameraShot', e.target.value)}
           placeholder="e.g. wide establishing shot, eye level"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
         />
       </div>
 
@@ -76,7 +76,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.cameraLens}
           onChange={(e) => onInputChange('cameraLens', e.target.value)}
           placeholder="e.g. 50mm lens, wide angle, telephoto"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
         />
       </div>
 
@@ -99,7 +99,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.cinematographyNotes}
           onChange={(e) => onInputChange('cinematographyNotes', e.target.value)}
           placeholder="e.g. shallow depth of field, rack focus, handheld motion"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
         />
       </div>
 
@@ -122,7 +122,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.lighting}
           onChange={(e) => onInputChange('lighting', e.target.value)}
           placeholder="e.g. natural daylight, dramatic shadows, soft lighting"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
         />
       </div>
 
@@ -145,7 +145,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.mood}
           onChange={(e) => onInputChange('mood', e.target.value)}
           placeholder="e.g. cinematic and tense, playful and suspenseful"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
         />
       </div>
 
@@ -169,7 +169,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
               value={action}
               onChange={(e) => onActionChange(index, e.target.value)}
               placeholder={`Action ${index + 1}: a clear, specific beat or gesture`}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
             />
             {formData.actions.length > 1 && (
               <button
@@ -202,7 +202,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.audio}
           onChange={(e) => onInputChange('audio', e.target.value)}
           placeholder="Describe background music, sound effects, ambient sounds..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
           rows={4}
         />
       </div>
@@ -217,7 +217,7 @@ function PromptForm({ formData, onInputChange, onActionChange, onAddAction, onRe
           value={formData.dialogue}
           onChange={(e) => onInputChange('dialogue', e.target.value)}
           placeholder={`- Character one: "Line one."\n- Character two: "Line two."\n- Character one: "Line three"`}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
           rows={4}
         />
       </div>
