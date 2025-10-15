@@ -9,25 +9,22 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
     onClose()
   }
 
-  const makeClickableTerm = (term, description) => (
+  const makeClickableTerm = (keyword, description, insertValue) => (
     <div 
-      key={term}
-      className="cursor-pointer hover:bg-sky-50 hover:text-sky-800 px-2 py-1 rounded transition-colors"
-      onClick={() => handleTermClick(term)}
-      title={`Click to insert "${term}"`}
+      key={keyword}
+      className="cursor-pointer hover:bg-sky-50 hover:text-sky-800 px-3 py-2 rounded-lg border border-transparent hover:border-sky-200 transition-all"
+      onClick={() => handleTermClick(insertValue)}
+      title={`Click to insert: "${insertValue}"`}
     >
-      <strong>{term}</strong> – {description}
-    </div>
-  )
-
-  const makeClickableFullLine = (term, description) => (
-    <div 
-      key={term}
-      className="cursor-pointer hover:bg-sky-50 hover:text-sky-800 px-2 py-1 rounded transition-colors"
-      onClick={() => handleTermClick(`${term} – ${description}`)}
-      title={`Click to insert full description`}
-    >
-      <strong>{term}</strong> – {description}
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <div className="font-semibold text-sky-700 text-sm mb-1">{keyword}</div>
+          <div className="text-gray-600 text-xs leading-relaxed">{description}</div>
+        </div>
+        <div className="ml-2 text-xs text-gray-400 font-mono bg-gray-100 px-2 py-1 rounded">
+          {insertValue}
+        </div>
+      </div>
     </div>
   )
 
@@ -41,54 +38,52 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
             <div className="space-y-6">
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Shot Types (Framing)</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Establishing Shot", "Introduces location or context")}
-                  {makeClickableTerm("Wide Shot", "Subject and environment together")}
-                  {makeClickableTerm("Long Shot", "Subject and environment together")}
-                  {makeClickableTerm("Full Shot", "Head-to-toe framing of a person")}
-                  {makeClickableTerm("Medium Shot", "Waist-up framing for dialogue")}
-                  {makeClickableTerm("Medium Close-Up", "Shoulders-up, intimate but not tight")}
-                  {makeClickableTerm("Close-Up", "Focuses on face or key object")}
-                  {makeClickableTerm("Extreme Close-Up", "Isolates small detail (eyes, hands)")}
-                  {makeClickableTerm("Two-Shot", "Two subjects in same frame")}
-                  {makeClickableTerm("Insert Shot", "Detail/object related to action")}
-                  {makeClickableTerm("Cutaway", "Detail/object related to action")}
-                  {makeClickableTerm("Reaction Shot", "Character's emotional response")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Wide Shot", "Shows subject in full context with surrounding environment", "wide shot")}
+                  {makeClickableTerm("Long Shot", "Full figure visible with significant background space", "long shot")}
+                  {makeClickableTerm("Full Shot", "Head-to-toe framing of a person, shows complete figure", "full shot")}
+                  {makeClickableTerm("Medium Shot", "Waist-up framing, ideal for dialogue scenes", "medium shot")}
+                  {makeClickableTerm("Medium Close-Up", "Shoulders up, intimate but not claustrophobic", "medium close-up")}
+                  {makeClickableTerm("Close-Up", "Focuses on face or key object, creates intimacy", "close-up")}
+                  {makeClickableTerm("Extreme Close-Up", "Isolates small details like eyes or hands", "extreme close-up")}
+                  {makeClickableTerm("Two-Shot", "Two subjects in the same frame, shows relationship", "two-shot")}
+                  {makeClickableTerm("Insert Shot", "Detail or object related to the main action", "insert shot")}
+                  {makeClickableTerm("Cutaway", "Related detail that cuts away from main action", "cutaway")}
+                  {makeClickableTerm("Reaction Shot", "Character's emotional response to events", "reaction shot")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Camera Angles</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Eye-Level", "Neutral perspective at subject's height")}
-                  {makeClickableTerm("Low Angle", "Looks up; conveys power/dominance")}
-                  {makeClickableTerm("High Angle", "Looks down; vulnerability/smallness")}
-                  {makeClickableTerm("Bird's-Eye", "Straight down; detached view")}
-                  {makeClickableTerm("Overhead", "Straight down; detached view")}
-                  {makeClickableTerm("Dutch Angle", "Tilted horizon for unease/energy")}
-                  {makeClickableTerm("Over-the-Shoulder", "From behind subject; dialogue")}
-                  {makeClickableTerm("OTS", "From behind subject; dialogue")}
-                  {makeClickableTerm("POV", "Shows what character sees")}
-                  {makeClickableTerm("Fisheye", "Ultra-wide, distorted for stylized effect")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Eye-Level Shot", "Neutral perspective at subject's eye height, natural viewpoint", "eye-level shot")}
+                  {makeClickableTerm("Low Angle Shot", "Camera looks up at subject, conveys power and dominance", "low angle shot")}
+                  {makeClickableTerm("High Angle Shot", "Camera looks down at subject, creates vulnerability", "high angle shot")}
+                  {makeClickableTerm("Bird's-Eye Shot", "Directly overhead view, detached and omniscient", "bird's-eye shot")}
+                  {makeClickableTerm("Overhead Shot", "Straight down perspective, reveals spatial relationships", "overhead shot")}
+                  {makeClickableTerm("Dutch Angle Shot", "Tilted horizon creates unease and dynamic energy", "dutch angle shot")}
+                  {makeClickableTerm("Over-the-Shoulder Shot", "From behind one subject looking at another, dialogue framing", "over-the-shoulder shot")}
+                  {makeClickableTerm("POV Shot", "Shows exactly what a character sees, first-person perspective", "POV shot")}
+                  {makeClickableTerm("Fisheye Shot", "Ultra-wide lens with curved distortion for stylized effect", "fisheye shot")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Camera Movements</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Dolly In", "Camera moves toward subject")}
-                  {makeClickableTerm("Dolly Out", "Camera moves away from subject")}
-                  {makeClickableTerm("Zoom In", "Lens magnification increases")}
-                  {makeClickableTerm("Zoom Out", "Lens magnification decreases")}
-                  {makeClickableTerm("Crane Up", "Large sweeping vertical movement up")}
-                  {makeClickableTerm("Crane Down", "Large sweeping vertical movement down")}
-                  {makeClickableTerm("Handheld", "Naturalistic, slightly shaky motion")}
-                  {makeClickableTerm("Static", "No camera movement")}
-                  {makeClickableTerm("Locked-Off", "No camera movement")}
-                  {makeClickableTerm("Arc Left", "Camera circles subject left")}
-                  {makeClickableTerm("Arc Right", "Camera circles subject right")}
-                  {makeClickableTerm("Whip Pan", "Fast horizontal blur as transition")}
-                  {makeClickableTerm("Tracking", "Move uncovers new subject")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Dolly In", "Camera physically moves toward subject, creates intimacy", "dolly in")}
+                  {makeClickableTerm("Dolly Out", "Camera physically moves away from subject, reveals context", "dolly out")}
+                  {makeClickableTerm("Zoom In", "Lens magnification increases, optical effect", "zoom in")}
+                  {makeClickableTerm("Zoom Out", "Lens magnification decreases, reveals more space", "zoom out")}
+                  {makeClickableTerm("Crane Up", "Large sweeping vertical movement upward, dramatic reveal", "crane up")}
+                  {makeClickableTerm("Crane Down", "Large sweeping vertical movement downward, settling motion", "crane down")}
+                  {makeClickableTerm("Handheld", "Naturalistic, slightly shaky motion, documentary feel", "handheld")}
+                  {makeClickableTerm("Static", "No camera movement, stable and composed", "static")}
+                  {makeClickableTerm("Locked-Off", "Completely fixed position, no movement", "locked-off")}
+                  {makeClickableTerm("Arc Left", "Camera circles subject to the left, dynamic framing", "arc left")}
+                  {makeClickableTerm("Arc Right", "Camera circles subject to the right, dynamic framing", "arc right")}
+                  {makeClickableTerm("Whip Pan", "Fast horizontal blur as transition between shots", "whip pan")}
+                  {makeClickableTerm("Tracking", "Camera follows subject, reveals new elements", "tracking")}
                 </div>
               </section>
             </div>
@@ -103,49 +98,49 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
             <div className="space-y-6">
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Depth of Field</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Shallow depth of field", "Subject sharp, background blurred")}
-                  {makeClickableTerm("Deep depth of field", "Everything in focus")}
-                  {makeClickableTerm("Rack focus", "Focus shifts between subjects")}
-                  {makeClickableTerm("Selective focus", "Isolates specific element")}
-                  {makeClickableTerm("Bokeh", "Aesthetic blur quality")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Shallow Depth of Field", "Subject sharp with blurred background, creates focus and intimacy", "shallow depth of field")}
+                  {makeClickableTerm("Deep Depth of Field", "Everything in focus, reveals full environment", "deep depth of field")}
+                  {makeClickableTerm("Rack Focus", "Focus shifts between subjects during the shot", "rack focus")}
+                  {makeClickableTerm("Selective Focus", "Isolates specific element while blurring others", "selective focus")}
+                  {makeClickableTerm("Bokeh", "Aesthetic blur quality in out-of-focus areas", "bokeh")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Camera Motion Quality</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Smooth tracking", "Fluid camera movement")}
-                  {makeClickableTerm("Handheld motion", "Natural, organic feel")}
-                  {makeClickableTerm("Steady cam", "Stabilized movement")}
-                  {makeClickableTerm("Gimbal movement", "Smooth electronic stabilization")}
-                  {makeClickableTerm("Locked off", "Completely static")}
-                  {makeClickableTerm("Subtle drift", "Slight organic movement")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Smooth Tracking", "Fluid, professional camera movement", "smooth tracking")}
+                  {makeClickableTerm("Handheld Motion", "Natural, organic feel with slight camera shake", "handheld motion")}
+                  {makeClickableTerm("Steadicam", "Stabilized movement, smooth but mobile", "steadicam")}
+                  {makeClickableTerm("Gimbal Movement", "Smooth electronic stabilization, modern look", "gimbal movement")}
+                  {makeClickableTerm("Locked Off", "Completely static, no movement", "locked off")}
+                  {makeClickableTerm("Subtle Drift", "Slight organic movement, natural breathing", "subtle drift")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Frame Rate & Speed</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("24fps cinematic", "Standard film look")}
-                  {makeClickableTerm("60fps smooth", "High frame rate clarity")}
-                  {makeClickableTerm("120fps slow motion", "Dramatic slow-down")}
-                  {makeClickableTerm("Overcranked", "Slowed down effect")}
-                  {makeClickableTerm("Undercranked", "Sped up effect")}
-                  {makeClickableTerm("Variable speed", "Speed changes within shot")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("24fps Cinematic", "Standard film look with natural motion blur", "24fps cinematic")}
+                  {makeClickableTerm("60fps Smooth", "High frame rate for clarity and smoothness", "60fps smooth")}
+                  {makeClickableTerm("120fps Slow Motion", "Dramatic slow-down for emphasis", "120fps slow motion")}
+                  {makeClickableTerm("Overcranked", "Slowed down effect, dreamy quality", "overcranked")}
+                  {makeClickableTerm("Undercranked", "Sped up effect, comedic or urgent", "undercranked")}
+                  {makeClickableTerm("Variable Speed", "Speed changes within the shot", "variable speed")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Camera Properties</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Film grain", "Organic texture")}
-                  {makeClickableTerm("Digital noise", "Video texture")}
-                  {makeClickableTerm("Soft focus", "Diffused, dreamy quality")}
-                  {makeClickableTerm("Tack sharp", "Crystal clear detail")}
-                  {makeClickableTerm("Lens flare", "Light artifacts")}
-                  {makeClickableTerm("Chromatic aberration", "Color fringing effect")}
-                  {makeClickableTerm("Vignette", "Darkened edges")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Film Grain", "Organic texture from analog film stock", "film grain")}
+                  {makeClickableTerm("Digital Noise", "Video texture from digital sensors", "digital noise")}
+                  {makeClickableTerm("Soft Focus", "Diffused, dreamy quality with gentle blur", "soft focus")}
+                  {makeClickableTerm("Tack Sharp", "Crystal clear detail, maximum sharpness", "tack sharp")}
+                  {makeClickableTerm("Lens Flare", "Light artifacts from bright light sources", "lens flare")}
+                  {makeClickableTerm("Chromatic Aberration", "Color fringing effect at edges", "chromatic aberration")}
+                  {makeClickableTerm("Vignette", "Darkened edges, draws focus to center", "vignette")}
                 </div>
               </section>
             </div>
@@ -160,37 +155,37 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
             <div className="space-y-6">
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Lens Types</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Prime Lens", "Fixed focal length; sharp and fast")}
-                  {makeClickableTerm("Zoom Lens", "Variable focal length for flexibility")}
-                  {makeClickableTerm("Wide Angle", "Captures more of the scene")}
-                  {makeClickableTerm("Telephoto", "Long lens compressing depth")}
-                  {makeClickableTerm("Macro Lens", "For extreme close-ups and details")}
-                  {makeClickableTerm("Fish-Eye Lens", "Ultra-wide with curved distortion")}
-                  {makeClickableTerm("Anamorphic Lens", "Wide cinematic aspect ratio")}
-                  {makeClickableTerm("Spherical Lens", "Standard optical projection")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Prime Lens", "Fixed focal length, sharp and fast with wide aperture", "prime lens")}
+                  {makeClickableTerm("Zoom Lens", "Variable focal length for flexibility and versatility", "zoom lens")}
+                  {makeClickableTerm("Wide Angle", "Captures more of the scene, expansive view", "wide angle")}
+                  {makeClickableTerm("Telephoto", "Long lens compressing depth and isolating subjects", "telephoto")}
+                  {makeClickableTerm("Macro Lens", "For extreme close-ups and fine details", "macro lens")}
+                  {makeClickableTerm("Fish-Eye Lens", "Ultra-wide with curved distortion for stylized effect", "fish-eye lens")}
+                  {makeClickableTerm("Anamorphic Lens", "Wide cinematic aspect ratio with oval bokeh", "anamorphic lens")}
+                  {makeClickableTerm("Spherical Lens", "Standard optical projection, natural perspective", "spherical lens")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Camera Types</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  <div><strong>Cinema Camera</strong> – Professional film/digital motion</div>
-                  <div><strong>DSLR / Mirrorless</strong> – Digital still cameras with video</div>
-                  <div><strong>Action Cam</strong> – Compact, wide-angle for dynamic shots</div>
-                  <div><strong>FPV Drone</strong> – First-person-view drone camera</div>
-                  <div><strong>16mm / 35mm Film</strong> – Classic film stocks with grain</div>
-                  <div><strong>IMAX Film</strong> – Large-format for high detail</div>
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Cinema Camera", "Professional film/digital motion capture", "cinema camera")}
+                  {makeClickableTerm("DSLR / Mirrorless", "Digital still cameras with video capability", "DSLR mirrorless")}
+                  {makeClickableTerm("Action Cam", "Compact, wide-angle for dynamic shots", "action cam")}
+                  {makeClickableTerm("FPV Drone", "First-person-view drone camera", "FPV drone")}
+                  {makeClickableTerm("16mm / 35mm Film", "Classic film stocks with organic grain", "16mm 35mm film")}
+                  {makeClickableTerm("IMAX Film", "Large-format for high detail and resolution", "IMAX film")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Frame Rates</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  <div><strong>24fps</strong> – Standard cinematic; smooth motion blur</div>
-                  <div><strong>30fps</strong> – Video-style; sharper motion</div>
-                  <div><strong>60fps+</strong> – High frame rate for slow motion</div>
-                  <div><strong>Film Grain</strong> – Visible texture from analog film</div>
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("24fps", "Standard cinematic frame rate with smooth motion blur", "24fps")}
+                  {makeClickableTerm("30fps", "Video-style frame rate with sharper motion", "30fps")}
+                  {makeClickableTerm("60fps+", "High frame rate for slow motion capture", "60fps+")}
+                  {makeClickableTerm("Film Grain", "Visible texture from analog film stock", "film grain")}
                 </div>
               </section>
             </div>
@@ -205,38 +200,38 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
             <div className="space-y-6">
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Light Types</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableFullLine("Key Light", "Main light illuminating the subject")}
-                  {makeClickableFullLine("Fill Light", "Reduces shadows from key light")}
-                  {makeClickableFullLine("Back Light", "From behind; separates subject")}
-                  {makeClickableFullLine("Rim Light", "From behind; separates subject")}
-                  {makeClickableFullLine("Ambient Light", "Natural or existing light in scene")}
-                  {makeClickableFullLine("Practical Light", "Visible sources like lamps/candles")}
-                  {makeClickableFullLine("Bounce Light", "Indirect light reflected off surface")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Key Light", "Main light illuminating the subject, primary source", "key light")}
+                  {makeClickableTerm("Fill Light", "Reduces shadows from key light, softens contrast", "fill light")}
+                  {makeClickableTerm("Back Light", "From behind subject, creates separation and depth", "back light")}
+                  {makeClickableTerm("Rim Light", "From behind subject, creates edge definition", "rim light")}
+                  {makeClickableTerm("Ambient Light", "Natural or existing light in the scene", "ambient light")}
+                  {makeClickableTerm("Practical Light", "Visible sources like lamps, candles, or fixtures", "practical light")}
+                  {makeClickableTerm("Bounce Light", "Indirect light reflected off surfaces", "bounce light")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Lighting Quality</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableFullLine("Hard Light", "Sharp shadows and strong contrast")}
-                  {makeClickableFullLine("Soft Light", "Diffused with gentle shadows")}
-                  {makeClickableFullLine("High Key Lighting", "Bright, low contrast, cheerful")}
-                  {makeClickableFullLine("Low Key Lighting", "Dark, high contrast, dramatic")}
-                  {makeClickableFullLine("Silhouette Lighting", "Backlit with dark foreground")}
-                  {makeClickableFullLine("Chiaroscuro", "Strong light/shadow contrast")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Hard Light", "Sharp shadows and strong contrast, dramatic effect", "hard light")}
+                  {makeClickableTerm("Soft Light", "Diffused with gentle shadows, flattering look", "soft light")}
+                  {makeClickableTerm("High Key Lighting", "Bright, low contrast, cheerful and optimistic", "high key lighting")}
+                  {makeClickableTerm("Low Key Lighting", "Dark, high contrast, dramatic and moody", "low key lighting")}
+                  {makeClickableTerm("Silhouette Lighting", "Backlit with dark foreground, mysterious", "silhouette lighting")}
+                  {makeClickableTerm("Chiaroscuro", "Strong light/shadow contrast, artistic", "chiaroscuro")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Lighting Direction</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableFullLine("Top Light", "Overhead; adds intensity or mystery")}
-                  {makeClickableFullLine("Under Light", "From below; unsettling/creepy effect")}
-                  {makeClickableFullLine("Cross Lighting", "Opposite sides to sculpt form")}
-                  {makeClickableFullLine("Motivated Lighting", "Mimics visible source (window/lamp)")}
-                  {makeClickableFullLine("Natural Light", "Sunlight or moonlight, unmodified")}
-                  {makeClickableFullLine("Artificial Light", "Controlled sources (LEDs, spots)")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Top Light", "Overhead lighting, adds intensity or mystery", "top light")}
+                  {makeClickableTerm("Under Light", "From below, unsettling or creepy effect", "under light")}
+                  {makeClickableTerm("Cross Lighting", "Opposite sides to sculpt form and dimension", "cross lighting")}
+                  {makeClickableTerm("Motivated Lighting", "Mimics visible source like window or lamp", "motivated lighting")}
+                  {makeClickableTerm("Natural Light", "Sunlight or moonlight, unmodified", "natural light")}
+                  {makeClickableTerm("Artificial Light", "Controlled sources like LEDs or spotlights", "artificial light")}
                 </div>
               </section>
             </div>
@@ -251,37 +246,37 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
             <div className="space-y-6">
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Cinematic Moods</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableFullLine("Cinematic", "Polished, immersive, visually dramatic")}
-                  {makeClickableFullLine("Documentary", "Realistic, handheld, observational")}
-                  {makeClickableFullLine("Noir", "Dark, moody, high contrast, moral ambiguity")}
-                  {makeClickableFullLine("Dreamlike", "Soft focus, surreal pacing, ethereal")}
-                  {makeClickableFullLine("Nostalgic", "Warm tones, film grain, evokes memory")}
-                  {makeClickableFullLine("Suspenseful", "Tense pacing and selective lighting")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Cinematic", "Polished, immersive, visually dramatic", "cinematic")}
+                  {makeClickableTerm("Documentary", "Realistic, handheld, observational", "documentary")}
+                  {makeClickableTerm("Noir", "Dark, moody, high contrast, moral ambiguity", "noir")}
+                  {makeClickableTerm("Dreamlike", "Soft focus, surreal pacing, ethereal", "dreamlike")}
+                  {makeClickableTerm("Nostalgic", "Warm tones, film grain, evokes memory", "nostalgic")}
+                  {makeClickableTerm("Suspenseful", "Tense pacing and selective lighting", "suspenseful")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Emotional Moods</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableFullLine("Romantic", "Soft light, golden hues, intimate framing")}
-                  {makeClickableFullLine("Melancholic", "Muted color, slow pacing, introspective")}
-                  {makeClickableFullLine("Gritty", "Rough, handheld, desaturated realism")}
-                  {makeClickableFullLine("Whimsical", "Bright, stylized, playful motion")}
-                  {makeClickableFullLine("Surreal", "Unnatural lighting/movement; dreamlike logic")}
-                  {makeClickableFullLine("Futuristic", "Clean, metallic; cool lighting, precision")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Romantic", "Soft light, golden hues, intimate framing", "romantic")}
+                  {makeClickableTerm("Melancholic", "Muted color, slow pacing, introspective", "melancholic")}
+                  {makeClickableTerm("Gritty", "Rough, handheld, desaturated realism", "gritty")}
+                  {makeClickableTerm("Whimsical", "Bright, stylized, playful motion", "whimsical")}
+                  {makeClickableTerm("Surreal", "Unnatural lighting/movement, dreamlike logic", "surreal")}
+                  {makeClickableTerm("Futuristic", "Clean, metallic, cool lighting, precision", "futuristic")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Genre Moods</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableFullLine("Horror", "High contrast, underlighting, uneasy framing")}
-                  {makeClickableFullLine("Comedic", "Bright lighting, wide framing, rhythmic timing")}
-                  {makeClickableFullLine("Epic", "Grand scale, sweeping shots, orchestral energy")}
-                  {makeClickableFullLine("Minimalist", "Sparse design and clean composition")}
-                  {makeClickableFullLine("Intimate", "Close framing, shallow focus, personal")}
-                  {makeClickableFullLine("Tranquil", "Slow movement, natural sound, serene light")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Horror", "High contrast, underlighting, uneasy framing", "horror")}
+                  {makeClickableTerm("Comedic", "Bright lighting, wide framing, rhythmic timing", "comedic")}
+                  {makeClickableTerm("Epic", "Grand scale, sweeping shots, orchestral energy", "epic")}
+                  {makeClickableTerm("Minimalist", "Sparse design and clean composition", "minimalist")}
+                  {makeClickableTerm("Intimate", "Close framing, shallow focus, personal", "intimate")}
+                  {makeClickableTerm("Tranquil", "Slow movement, natural sound, serene light", "tranquil")}
                 </div>
               </section>
             </div>
@@ -325,40 +320,40 @@ const InfoModal = ({ isOpen, onClose, type, onInsertTerm }) => {
             <div className="space-y-6">
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Focus & Transitions</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Rack Focus", "Shifts focus between subjects")}
-                  {makeClickableTerm("Focus Change", "Shifts focus between subjects")}
-                  {makeClickableTerm("Match Cut", "Cuts between visually similar compositions")}
-                  {makeClickableTerm("Cross Dissolve", "Smooth blend from one shot to another")}
-                  {makeClickableTerm("Freeze Frame", "Holds a single frame")}
-                  {makeClickableTerm("Split Diopter", "Foreground and background both sharp")}
-                  {makeClickableTerm("Montage", "Rapid cuts to show time passing")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Rack Focus", "Shifts focus between subjects during the shot", "rack focus")}
+                  {makeClickableTerm("Focus Change", "Shifts focus between subjects during the shot", "focus change")}
+                  {makeClickableTerm("Match Cut", "Cuts between visually similar compositions", "match cut")}
+                  {makeClickableTerm("Cross Dissolve", "Smooth blend from one shot to another", "cross dissolve")}
+                  {makeClickableTerm("Freeze Frame", "Holds a single frame for emphasis", "freeze frame")}
+                  {makeClickableTerm("Split Diopter", "Foreground and background both sharp", "split diopter")}
+                  {makeClickableTerm("Montage", "Rapid cuts to show time passing", "montage")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Motion & Speed</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Slow Motion", "High FPS for dramatic slowdown")}
-                  {makeClickableTerm("Slo-Mo", "High FPS for dramatic slowdown")}
-                  {makeClickableTerm("Speed Ramp", "Dynamic shift between slow/normal speed")}
-                  {makeClickableTerm("Overcrank", "Frame-rate manipulation for slow motion")}
-                  {makeClickableTerm("Undercrank", "Frame-rate manipulation for fast motion")}
-                  {makeClickableTerm("Timelapse", "Time-compressed sequences")}
-                  {makeClickableTerm("Hyperlapse", "Moving timelapse through space")}
-                  {makeClickableTerm("Bullet Time", "Multi-camera array freezes/rotates")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Slow Motion", "High FPS for dramatic slowdown effect", "slow motion")}
+                  {makeClickableTerm("Slo-Mo", "High FPS for dramatic slowdown effect", "slo-mo")}
+                  {makeClickableTerm("Speed Ramp", "Dynamic shift between slow and normal speed", "speed ramp")}
+                  {makeClickableTerm("Overcrank", "Frame-rate manipulation for slow motion", "overcrank")}
+                  {makeClickableTerm("Undercrank", "Frame-rate manipulation for fast motion", "undercrank")}
+                  {makeClickableTerm("Timelapse", "Time-compressed sequences showing passage of time", "timelapse")}
+                  {makeClickableTerm("Hyperlapse", "Moving timelapse through space", "hyperlapse")}
+                  {makeClickableTerm("Bullet Time", "Multi-camera array freezes and rotates", "bullet time")}
                 </div>
               </section>
 
               <section>
                 <h3 className="font-semibold text-gray-900 mb-3">Creative Effects</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                  {makeClickableTerm("Whip Pan", "Fast horizontal blur as transition")}
-                  {makeClickableTerm("Crash Zoom", "Aggressive zoom for impact")}
-                  {makeClickableTerm("Dutch Angle", "Tilted horizon as stylistic choice")}
-                  {makeClickableTerm("Low Shutter", "Slow shutter for motion trails")}
-                  {makeClickableTerm("Through Object", "Passes through/behind objects")}
-                  {makeClickableTerm("Glam", "Polished, sensual motion emphasizing style")}
+                <div className="grid grid-cols-1 gap-3">
+                  {makeClickableTerm("Whip Pan", "Fast horizontal blur as transition between shots", "whip pan")}
+                  {makeClickableTerm("Crash Zoom", "Aggressive zoom for dramatic impact", "crash zoom")}
+                  {makeClickableTerm("Dutch Angle", "Tilted horizon as stylistic choice", "dutch angle")}
+                  {makeClickableTerm("Low Shutter", "Slow shutter for motion trails and blur", "slow shutter")}
+                  {makeClickableTerm("Through Object", "Passes through or behind objects", "through object")}
+                  {makeClickableTerm("Glam", "Polished, sensual motion emphasizing style", "glam")}
                 </div>
               </section>
             </div>

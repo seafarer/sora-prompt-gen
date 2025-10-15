@@ -4,6 +4,7 @@ import PromptForm from './components/PromptForm'
 import SavePromptDialog from './components/SavePromptDialog'
 import PromptsDrawer from './components/PromptsDrawer'
 import InfoModal from './components/InfoModal'
+import Wiki from './components/Wiki'
 import { savePrompt, getAllPrompts, deletePrompt, duplicatePrompt } from './utils/localStorage'
 
 function App() {
@@ -307,8 +308,28 @@ function App() {
                   Clear All Fields
                 </button>
               </div>
+              {/* Wiki - Full width below the main content */}
+              <div className="mt-8">
+                <Wiki />
+              </div>
+              <div className="mt-8">
+                <p className="text-base text-gray-600 text-center">
+                  Connect with me on Sora: <br />
+
+                <a className="text-sky-600 hover:text-sky-800 text-base underline" 
+                    href="https://sora.chatgpt.com/profile/spunhinged" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                   
+                  > 
+                  Spunhinged</a>
+                
+                </p>
+              </div>
             </div>
           </div>
+
+          
         </div>
       </div>
     </div>
